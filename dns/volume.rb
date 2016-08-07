@@ -28,12 +28,17 @@ class VolumeControlledDnsServer < RubyDNS::RuleBasedServer
   @@SITES.default = []
 
   attr_accessor :aio_feed_id
-  attr_accessor :check_interval
+  attr_reader :check_interval
   attr_reader :aio_key
 
   def aio_key=(new_key)
     @aio_client = Adafruit::IO::Client.new(key: new_key)
     @aio_key = new_key
+  end
+
+  def check_interval=(new_val)
+    @check_interval = new_val
+    @timer = self.every(new_val) { self.fire(:check_volume) }
   end
 
   def initialize(options = {})
