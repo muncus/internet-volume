@@ -45,7 +45,6 @@ class VolumeControlledDnsServer < RubyDNS::RuleBasedServer
     super(options)
     @aio_client = nil
     @current_volume = 10
-    @last_check_time = Time.new(2016)
     self.check_interval = (5 * 60)
 
     on(:check_volume) do 
@@ -53,7 +52,6 @@ class VolumeControlledDnsServer < RubyDNS::RuleBasedServer
       @current_volume = Integer(
           @aio_client.feeds.retrieve(self.aio_feed_id).last_value)
       @logger.info("volume: %s" % [@current_volume])
-      @last_check_time = Time.now
     end
   end
 
@@ -70,11 +68,6 @@ class VolumeControlledDnsServer < RubyDNS::RuleBasedServer
   end
 
   def process(name, resource_class, transaction)
-    puts self.check_interval
-    if (Time.now - @last_check_time) > self.check_interval
-      fire(:check_volume)
-    end
-
     if squelch?(transaction.question)
       transaction.fail!(:NXDomain)
     else
