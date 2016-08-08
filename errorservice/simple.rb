@@ -14,5 +14,6 @@ get '*' do |p|
   status 451
   headers \
     'X-filtered-by' => "Internet Volume Control 1.0"
-  body "This url has been filtered by Internet Volume Control."
+  return
+  #body "This url has been filtered by Internet Volume Control."
 end
