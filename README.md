@@ -37,10 +37,24 @@ Public DNS servers: 8.8.8.8).
 
 ### Volume Knob
 
-The directory `volumeknob` contiains code for a [Particle](http://particle.io) Photon.
-A potentiometer is wired up to pin `A0`, and readings from the pot are converted to volume levels between 0 and 10.
-These are then sent to an [AdafriuitIO](http://io.adafruit.com) feed that the DNS Server reads.
+The directory `volumeknob` contiains code for a [Particle](http://particle.io)
+Photon.
+A potentiometer is wired up to pin `A0`, and readings from the pot are
+converted to volume levels between 0 and 10.  These are then sent to an
+[AdafriuitIO](http://io.adafruit.com) feed that the DNS Server reads.
 
 #### Future Work
 
  * [ ] build a fancy enclosure.
+
+### Error Service
+
+Serving NXDomain for DNS queries is ok, but it would be better if a page was
+served that explained why/how the request was blocked. A simple ruby server is
+provided in `errorservice` that will serve an HTTP 451 (Censored) for all
+requests.
+
+#### Future Work
+
+  * [ ] add content, link to an explanation.
+  * [ ] Make DNS Server able to serve the address of our local error service.
