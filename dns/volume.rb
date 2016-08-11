@@ -27,7 +27,7 @@ class VolumeControlledDnsServer < RubyDNS::RuleBasedServer
   }
   @@SITES.default = []
 
-  attr_accessor :aio_feed_id
+  attr_accessor :aio_feed_key
   attr_reader :check_interval
   attr_reader :aio_key
 
@@ -46,11 +46,12 @@ class VolumeControlledDnsServer < RubyDNS::RuleBasedServer
     @aio_client = nil
     @current_volume = 10
     self.check_interval = (5 * 60)
+    self.aio_feed_key = 'internet-volume'
 
     on(:check_volume) do 
       @logger.info("checking volume.")
       @current_volume = Integer(
-          @aio_client.feeds.retrieve(self.aio_feed_id).last_value)
+          @aio_client.feeds.retrieve(self.aio_feed_key).last_value)
       @logger.info("volume: %s" % [@current_volume])
     end
   end
@@ -85,9 +86,9 @@ OptionParser.new do |opts|
           "AdafruitIO key, for accessing data feeds.") do |v|
     s.aio_key = v
   end
-  opts.on('-f', '--feed-id [INT]', Integer,
-          "AdafruitIO feed id (integer)") do |v|
-    s.aio_feed_id = v
+  opts.on('-f', '--feed-key [STR]', String,
+          "AdafruitIO feed key.") do |v|
+    s.aio_feed_key = v
   end
   opts.on('-i', '--interval [SECS]', Integer,
           "Interval to check for volume level updates, in seconds.") do |v|
