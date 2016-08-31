@@ -21,7 +21,7 @@ class VolumeControlledDnsServer < RubyDNS::RuleBasedServer
   # need a way to glob everything for opt in.
   # split to explicit allow/deny lists?
   @@SITES = {
-    10 => ['facebook.com'],
+    10 => ['facebook.com', 'instagram.com', 'twitter.com'],
      9 => ['pinterest.com'],
      1 => ['wikipedia.org'],
   }
