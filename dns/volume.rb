@@ -22,7 +22,7 @@ class VolumeControlledDnsServer < RubyDNS::RuleBasedServer
   # split to explicit allow/deny lists?
   @@SITES = {
     10 => ['facebook.com', 'instagram.com', 'twitter.com'],
-     9 => ['pinterest.com'],
+     9 => ['pinterest.com', 'tumblr.com'],
      1 => ['wikipedia.org'],
   }
   @@SITES.default = []
