@@ -3,10 +3,12 @@
 :warning: this is a work in progress. :warning:
 
 The internet is full of useful information, but with the rise of social media,
-there is also a lot of time-wastey Skinnerbox-style sites that keep you coming
-back with squirts of dopamine. To help curb this behavior, i've started
-developing the Internet Volume Control, which helps give back some control over
-how much Noise the internet can deliver.
+there is also a lot of time-wasting Skinnerbox-style sites that keep you
+scrolling for hours, getting little doses of dopamine.
+
+To help curb this behavior, i've started developing the Internet Volume
+Control, which helps dial down the "noise" by disabling various web sites that
+I feel are unproductive.
 
 ## Overview
 
@@ -24,10 +26,9 @@ For storing the actual volume level, i'm using http://io.adafruit.com/
 
 ### DNS Server
 
-Built around Celluloid::DNS (actually RubyDNS right now..) the server checks a
-blacklist of sites to serve NXDomain errors for. If a site is not in the
-blacklist for a given volume level, it is passed to upstream servers (google's
-Public DNS servers: 8.8.8.8).
+Built around RubyDNS the server checks a blacklist of sites to serve NXDomain
+errors for. If a site is not in the blacklist for a given volume level, it is
+passed to upstream servers (google's Public DNS servers: 8.8.8.8).
 
 #### Future work
 
